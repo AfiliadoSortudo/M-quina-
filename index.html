@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Máquina de Vendas no TikTok — Sua Primeira Venda em 30 Dias</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+  --bg: #07070A;
+  --surface: #0F0F14;
+  --surface2: #16161E;
+  --border: rgba(255,255,255,0.07);
+  --red: #FF1744;
+  --red2: #FF4569;
+  --cyan: #00E5FF;
+  --gold: #FFD600;
+  --white: #F0EEE8;
+  --muted: rgba(240,238,232,0.45);
+  --text: rgba(240,238,232,0.78);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--bg);
+  color:var(--white);
+  overflow-x:hidden;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(255,23,68,.3)}50%{box-shadow:0 0 50px rgba(255,23,68,.7),0 0 80px rgba(255,23,68,.3)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes countUp{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
+
+.fade-up{animation:fadeUp .7s ease forwards;opacity:0;}
+.fade-up:nth-child(1){animation-delay:.1s}
+.fade-up:nth-child(2){animation-delay:.2s}
+.fade-up:nth-child(3){animation-delay:.3s}
+.fade-up:nth-child(4){animation-delay:.4s}
+.fade-up:nth-child(5){animation-delay:.5s}
+
+/* ── TICKER ── */
+.ticker-wrap{
+  background:var(--red);
+  overflow:hidden;padding:10px 0;
+  position:relative;z-index:10;
+}
+.ticker-inner{
+  display:flex;white-space:nowrap;
+  animation:ticker 22s linear infinite;
+}
+.ticker-item{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:0 32px;color:var(--white);
+  display:flex;align-items:center;gap:16px;
+}
+.ticker-dot{width:5px;height:5px;background:rgba(255,255,255,.5);border-radius:50%;flex-shrink:0;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:80px 20px 60px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(255,23,68,.22) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 10% 100%, rgba(0,229,255,.08) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 30% at 90% 80%, rgba(255,214,0,.05) 0%, transparent 50%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%);
+}
+.scanline{
+  position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(0,229,255,.15),transparent);
+  animation:scanline 6s linear infinite;
+  pointer-events:none;
+}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,23,68,.12);border:1px solid rgba(255,23,68,.3);
+  border-radius:100px;padding:6px 16px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;color:var(--red2);
+  margin-bottom:32px;position:relative;z-index:2;
+  animation:fadeUp .6s ease .1s forwards;opacity:0;
+}
+.hero-badge-dot{width:6px;height:6px;background:var(--red);border-radius:50%;animation:pulse 1.5s ease infinite;}
+
+.hero-eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:3px;color:var(--cyan);text-transform:uppercase;
+  margin-bottom:20px;position:relative;z-index:2;
+  animation:fadeUp .6s ease .2s forwards;opacity:0;
+}
+
+.hero-title{
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(42px,8vw,86px);
+  font-weight:900;line-height:.92;
+  letter-spacing:-3px;
+  position:relative;z-index:2;
+  animation:fadeUp .7s ease .3s forwards;opacity:0;
+  max-width:860px;
+}
+.hero-title .line1{color:var(--white);}
+.hero-title .line2{
+  color:transparent;
+  background:linear-gradient(90deg,var(--red),var(--red2),var(--gold));
+  -webkit-background-clip:text;background-clip:text;
+  background-size:200% auto;
+  animation:shimmer 3s linear infinite;
+}
+.hero-title .line3{color:var(--white);}
+
+.hero-sub{
+  font-size:18px;font-weight:400;line-height:1.7;
+  color:var(--text);max-width:560px;
+  margin:24px auto 0;position:relative;z-index:2;
+  animation:fadeUp .7s ease .4s forwards;opacity:0;
+}
+.hero-sub strong{color:var(--white);font-weight:600;}
+
+.hero-stats{
+  display:flex;gap:32px;justify-content:center;flex-wrap:wrap;
+  margin:44px 0 0;position:relative;z-index:2;
+  animation:fadeUp .7s ease .5s forwards;opacity:0;
+}
+.hstat{text-align:center;}
+.hstat-num{
+  font-family:'Unbounded',sans-serif;font-size:38px;font-weight:900;
+  color:var(--red);line-height:1;
+}
+.hstat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+
+.hero-cta-group{
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  margin-top:48px;position:relative;z-index:2;
+  animation:fadeUp .7s ease .6s forwards;opacity:0;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,var(--red),#cc0033);
+  color:var(--white);font-family:'Unbounded',sans-serif;
+  font-size:15px;font-weight:700;letter-spacing:.5px;
+  padding:18px 44px;border-radius:6px;
+  border:none;cursor:pointer;text-decoration:none;
+  transition:all .2s ease;
+  animation:glow 2.5s ease infinite;
+}
+.btn-primary:hover{transform:translateY(-2px);filter:brightness(1.1);}
+.btn-primary .arrow{font-size:18px;transition:transform .2s;}
+.btn-primary:hover .arrow{transform:translateX(4px);}
+
+.hero-guarantee{
+  font-size:12px;color:var(--muted);
+  display:flex;align-items:center;gap:6px;
+}
+
+/* ── SOCIAL PROOF BAR ── */
+.proof-bar{
+  background:var(--surface);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:20px;
+}
+.proof-inner{
+  max-width:900px;margin:0 auto;
+  display:flex;align-items:center;justify-content:center;
+  gap:40px;flex-wrap:wrap;
+}
+.proof-item{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--muted);
+}
+.proof-item strong{color:var(--white);font-weight:600;}
+.proof-icon{font-size:18px;}
+
+/* ── SECTIONS ── */
+section{padding:80px 20px;}
+.container{max-width:900px;margin:0 auto;}
+.container-sm{max-width:680px;margin:0 auto;}
+
+.section-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:3px;
+  color:var(--red);text-transform:uppercase;
+  display:block;margin-bottom:12px;
+}
+.section-title{
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(28px,5vw,44px);font-weight:900;
+  line-height:1.05;letter-spacing:-1.5px;
+  color:var(--white);margin-bottom:16px;
+}
+.section-title span{color:var(--red);}
+.section-sub{
+  font-size:16px;line-height:1.75;color:var(--text);
+  max-width:580px;
+}
+
+/* ── PROBLEM SECTION ── */
+.problem{background:var(--surface);}
+.problem-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:14px;margin-top:40px;
+}
+.prob-card{
+  background:rgba(255,23,68,.05);
+  border:1px solid rgba(255,23,68,.14);
+  border-radius:10px;padding:20px;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.prob-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+.prob-title{font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.prob-text{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* ── SOLUTION ── */
+.solution-reveal{
+  background:linear-gradient(135deg,rgba(255,23,68,.08),rgba(0,229,255,.04));
+  border:1px solid rgba(255,23,68,.2);
+  border-radius:14px;padding:36px;margin-top:40px;
+  text-align:center;
+}
+.sr-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:3px;color:var(--cyan);
+  text-transform:uppercase;margin-bottom:12px;display:block;
+}
+.sr-method{
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(32px,6vw,56px);font-weight:900;
+  letter-spacing:6px;color:var(--white);line-height:1;
+}
+.sr-method span{color:var(--red);}
+.sr-desc{font-size:15px;color:var(--text);margin-top:16px;line-height:1.7;max-width:500px;margin-left:auto;margin-right:auto;}
+
+/* ── FRENDA ── */
+.frenda{padding:80px 20px;background:var(--bg);}
+.frenda-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:14px;margin-top:40px;
+}
+.frenda-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:22px;position:relative;overflow:hidden;
+  transition:border-color .2s,transform .2s;
+}
+.frenda-card:hover{border-color:rgba(255,23,68,.4);transform:translateY(-3px);}
+.frenda-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--red),transparent);
+  opacity:0;transition:opacity .2s;
+}
+.frenda-card:hover::before{opacity:1;}
+.fc-letter{
+  font-family:'Unbounded',sans-serif;font-size:52px;font-weight:900;
+  color:rgba(255,23,68,.15);line-height:1;margin-bottom:12px;
+}
+.fc-title{font-size:14px;font-weight:700;color:var(--white);margin-bottom:6px;}
+.fc-desc{font-size:12px;color:var(--muted);line-height:1.65;}
+
+/* ── WHAT YOU GET ── */
+.modules{padding:80px 20px;background:var(--surface);}
+.mod-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:12px;margin-top:40px;
+}
+.mod-item{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:8px;padding:16px;
+  display:flex;align-items:flex-start;gap:12px;
+  transition:border-color .2s;
+}
+.mod-item:hover{border-color:rgba(0,229,255,.2);}
+.mod-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--cyan);
+  min-width:24px;margin-top:3px;
+}
+.mod-title{font-size:13px;font-weight:600;color:var(--white);margin-bottom:3px;}
+.mod-desc{font-size:11px;color:var(--muted);line-height:1.55;}
+
+/* ── FOR WHO ── */
+.forwho{padding:80px 20px;}
+.fw-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:14px;margin-top:36px;
+}
+.fw-yes,.fw-no{
+  background:var(--surface);border-radius:10px;padding:24px;
+}
+.fw-yes{border:1px solid rgba(74,222,128,.2);}
+.fw-no{border:1px solid rgba(255,23,68,.15);}
+.fw-header{
+  font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;
+  margin-bottom:16px;display:flex;align-items:center;gap:8px;
+}
+.fw-yes .fw-header{color:#4ade80;}
+.fw-no .fw-header{color:var(--red);}
+.fw-list{list-style:none;}
+.fw-list li{
+  font-size:13px;color:var(--text);
+  padding:8px 0;border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:10px;line-height:1.5;
+}
+.fw-list li:last-child{border-bottom:none;}
+.fw-yes .fw-list li::before{content:'✓';color:#4ade80;font-weight:700;flex-shrink:0;}
+.fw-no .fw-list li::before{content:'✗';color:var(--red);font-weight:700;flex-shrink:0;}
+
+/* ── HOOKS PREVIEW ── */
+.hooks{background:var(--surface);padding:80px 20px;}
+.hooks-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:8px;margin-top:36px;
+}
+.hook-card{
+  background:var(--surface2);
+  border-left:2px solid var(--red);
+  border-radius:0 7px 7px 0;
+  padding:12px 14px;
+  font-size:12px;color:var(--text);line-height:1.5;
+}
+.hook-n{
+  font-family:'JetBrains Mono',monospace;
+  font-size:8px;color:var(--red);margin-bottom:4px;display:block;
+}
+
+/* ── CASES ── */
+.cases{padding:80px 20px;}
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:40px;}
+.case-card{
+  background:var(--surface);
+  border:1px solid rgba(255,214,0,.18);
+  border-radius:12px;padding:24px;
+  position:relative;overflow:hidden;
+}
+.case-card::after{
+  content:'';position:absolute;top:0;right:0;
+  width:80px;height:80px;
+  background:radial-gradient(circle at 100% 0%,rgba(255,214,0,.06),transparent 60%);
+}
+.case-tag{
+  font-family:'JetBrains Mono',monospace;font-size:8px;
+  color:var(--gold);letter-spacing:2px;margin-bottom:8px;display:block;
+}
+.case-title{font-family:'Unbounded',sans-serif;font-size:16px;font-weight:700;color:var(--white);margin-bottom:14px;line-height:1.3;}
+.case-stats{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px;}
+.cstat-n{font-family:'Unbounded',sans-serif;font-size:24px;font-weight:900;color:var(--gold);}
+.cstat-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+.case-desc{font-size:12px;color:var(--muted);line-height:1.65;}
+
+/* ── TESTIMONIALS ── */
+.testimonials{background:var(--surface);padding:80px 20px;}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:40px;}
+.testi-card{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:10px;padding:22px;
+  transition:border-color .2s;
+}
+.testi-card:hover{border-color:rgba(255,23,68,.2);}
+.testi-stars{color:var(--gold);font-size:14px;margin-bottom:10px;letter-spacing:2px;}
+.testi-text{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:16px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:10px;}
+.testi-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--red),var(--red2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;
+  flex-shrink:0;
+}
+.testi-name{font-size:13px;font-weight:600;color:var(--white);}
+.testi-role{font-size:11px;color:var(--muted);}
+
+/* ── URGENCY BAR ── */
+.urgency{
+  background:linear-gradient(90deg,#1a0005,#200008,#1a0005);
+  border-top:1px solid rgba(255,23,68,.2);
+  border-bottom:1px solid rgba(255,23,68,.2);
+  padding:18px 20px;text-align:center;
+}
+.urg-inner{
+  display:flex;align-items:center;justify-content:center;
+  gap:16px;flex-wrap:wrap;
+  font-size:13px;color:var(--text);
+}
+.urg-label{
+  font-family:'Unbounded',sans-serif;font-size:12px;
+  font-weight:700;color:var(--red);letter-spacing:.5px;
+}
+.urg-dot{width:6px;height:6px;background:var(--red);border-radius:50%;animation:pulse 1s ease infinite;}
+
+/* ── PRICE SECTION ── */
+.pricing{padding:80px 20px;background:var(--bg);}
+.price-box{
+  max-width:560px;margin:40px auto 0;
+  background:var(--surface);
+  border:1px solid rgba(255,23,68,.2);
+  border-radius:16px;overflow:hidden;
+  position:relative;
+}
+.price-top{
+  background:linear-gradient(135deg,rgba(255,23,68,.15),rgba(255,23,68,.05));
+  padding:28px 32px;text-align:center;
+  border-bottom:1px solid rgba(255,23,68,.15);
+}
+.price-badge{
+  display:inline-block;
+  background:var(--red);color:var(--white);
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  letter-spacing:2px;padding:4px 12px;border-radius:2px;
+  margin-bottom:14px;text-transform:uppercase;
+}
+.price-name{
+  font-family:'Unbounded',sans-serif;font-size:20px;font-weight:900;
+  color:var(--white);margin-bottom:20px;
+}
+.price-old{font-size:16px;color:var(--muted);text-decoration:line-through;margin-bottom:4px;}
+.price-current{
+  font-family:'Unbounded',sans-serif;font-size:72px;font-weight:900;
+  color:var(--red);line-height:1;letter-spacing:-3px;
+}
+.price-current small{font-size:28px;letter-spacing:0;vertical-align:super;}
+.price-installment{font-size:13px;color:var(--muted);margin-top:6px;}
+
+.price-body{padding:28px 32px;}
+.price-features{list-style:none;}
+.price-features li{
+  font-size:13px;color:var(--text);
+  padding:10px 0;border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:10px;line-height:1.5;
+}
+.price-features li:last-child{border-bottom:none;}
+.price-features li::before{content:'✅';font-size:13px;flex-shrink:0;}
+
+.price-cta{padding:0 32px 28px;text-align:center;}
+.btn-buy{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;
+  background:linear-gradient(135deg,var(--red),#cc0033);
+  color:var(--white);font-family:'Unbounded',sans-serif;
+  font-size:16px;font-weight:700;letter-spacing:.5px;
+  padding:20px 32px;border-radius:8px;
+  border:none;cursor:pointer;text-decoration:none;
+  transition:all .25s;animation:glow 2.5s ease infinite;
+}
+.btn-buy:hover{transform:translateY(-3px);filter:brightness(1.12);}
+
+.price-guarantees{
+  display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+  margin-top:16px;
+}
+.guar{
+  display:flex;align-items:center;gap:6px;
+  font-size:11px;color:var(--muted);
+}
+
+/* ── FAQ ── */
+.faq{background:var(--surface);padding:80px 20px;}
+.faq-list{margin-top:40px;}
+.faq-item{
+  border-bottom:1px solid var(--border);
+  padding:20px 0;cursor:pointer;
+}
+.faq-q{
+  font-size:15px;font-weight:600;color:var(--white);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  user-select:none;
+}
+.faq-icon{
+  font-family:'Unbounded',sans-serif;font-size:18px;color:var(--red);
+  flex-shrink:0;transition:transform .25s;
+}
+.faq-a{
+  font-size:13px;color:var(--muted);line-height:1.75;
+  margin-top:0;max-height:0;overflow:hidden;
+  transition:max-height .3s ease,margin-top .3s ease;
+}
+.faq-item.open .faq-a{max-height:300px;margin-top:14px;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+
+/* ── FINAL CTA ── */
+.final-cta{
+  padding:100px 20px;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%,rgba(255,23,68,.14) 0%,transparent 65%),
+    var(--bg);
+  text-align:center;
+}
+.fc-title2{
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(28px,5vw,52px);font-weight:900;
+  line-height:1;letter-spacing:-1.5px;margin-bottom:20px;
+}
+.fc-sub{
+  font-size:16px;color:var(--text);max-width:480px;
+  margin:0 auto 40px;line-height:1.7;
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--surface);
+  border-top:1px solid var(--border);
+  padding:32px 20px;text-align:center;
+}
+.footer-text{font-size:12px;color:var(--muted);line-height:1.8;}
+.footer-links{display:flex;gap:24px;justify-content:center;margin-top:12px;flex-wrap:wrap;}
+.footer-links a{font-size:11px;color:var(--muted);text-decoration:none;}
+.footer-links a:hover{color:var(--white);}
+
+/* ── DIVIDERS ── */
+.div{width:100%;height:1px;background:var(--border);margin:28px 0;}
+.div-accent{width:48px;height:2px;background:linear-gradient(90deg,var(--red),var(--cyan));margin:14px 0 22px;}
+
+/* ── STICKY CTA ── */
+.sticky-cta{
+  position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:rgba(7,7,10,.92);
+  backdrop-filter:blur(12px);
+  border-top:1px solid rgba(255,23,68,.2);
+  padding:12px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  flex-wrap:wrap;
+  transform:translateY(100%);
+  transition:transform .35s ease;
+}
+.sticky-cta.show{transform:translateY(0);}
+.sticky-price{font-family:'Unbounded',sans-serif;font-size:22px;font-weight:900;color:var(--red);}
+.sticky-sub{font-size:11px;color:var(--muted);}
+.btn-sticky{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red);color:var(--white);
+  font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;
+  padding:12px 24px;border-radius:5px;border:none;cursor:pointer;
+  text-decoration:none;white-space:nowrap;
+  transition:all .2s;
+}
+.btn-sticky:hover{filter:brightness(1.1);}
+
+/* ── HIGHLIGHT ── */
+.hl{
+  background:linear-gradient(135deg,rgba(255,23,68,.09),rgba(0,229,255,.04));
+  border-left:3px solid var(--red);border-radius:0 8px 8px 0;
+  padding:14px 18px;margin:20px 0;
+}
+.hl p{font-size:14px;font-weight:500;color:var(--white);line-height:1.65;}
+.hl.cy{border-left-color:var(--cyan);background:linear-gradient(135deg,rgba(0,229,255,.07),transparent);}
+.hl.go{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(255,214,0,.07),transparent);}
+
+/* ── TOP HEADER ── */
+.top-header{
+  background:var(--bg);
+  border-bottom:1px solid rgba(255,23,68,.18);
+  padding:12px 20px;
+  text-align:center;
+  position:relative;
+  z-index:20;
+}
+.top-header-inner{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted);
+}
+.top-header-inner strong{
+  color:var(--white);font-weight:700;
+  font-family:'Unbounded',sans-serif;
+  font-size:10px;letter-spacing:2px;
+}
+.top-header-divider{
+  width:4px;height:4px;border-radius:50%;
+  background:rgba(255,23,68,.5);flex-shrink:0;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .hero-stats{gap:20px;}
+  .hstat-num{font-size:28px;}
+  .proof-inner{gap:20px;}
+  .price-current{font-size:54px;}
+  .sticky-cta{justify-content:center;}
+  .top-header-inner{font-size:9px;letter-spacing:2px;gap:7px;}
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <div>
+    <div class="sticky-price">R$29,90</div>
+    <div class="sticky-sub">Acesso imediato · Garantia de 7 dias</div>
+  </div>
+  <a href="#pricing" class="btn-sticky">Quero Começar Agora →</a>
+</div>
+
+<!-- TOP HEADER -->
+<div class="top-header">
+  <div class="top-header-inner">
+    <span class="top-header-divider"></span>
+    <strong>Afiliado Sortudo™</strong>
+    <span>apresenta</span>
+    <span class="top-header-divider"></span>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <div class="ticker-item"><span class="ticker-dot"></span>SEM APARECER NOS VÍDEOS</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>SEM PAGAR ANÚNCIO</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>MÉTODO F.R.E.N.D.A™</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>60 GANCHOS PRONTOS</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>10 ROTEIROS COMPLETOS</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>PLANO DE 90 DIAS</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>SEM APARECER NOS VÍDEOS</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>SEM PAGAR ANÚNCIO</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>MÉTODO F.R.E.N.D.A™</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>60 GANCHOS PRONTOS</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>10 ROTEIROS COMPLETOS</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>PLANO DE 90 DIAS</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="scanline"></div>
+
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    Método F.R.E.N.D.A™ · Edição 2026
+  </div>
+
+  <p class="hero-eyebrow">📱 O guia completo de vendas no TikTok</p>
+
+  <h1 class="hero-title">
+    <span class="line1">Sua Primeira</span><br>
+    <span class="line2">Venda no TikTok</span>
+  </h1>
+
+  <p class="hero-sub">
+    Sem aparecer nos vídeos. Sem pagar anúncio. Sem experiência prévia.<br>
+    <strong>O sistema completo que transforma conteúdo em renda recorrente.</strong>
+  </p>
+
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-num">60</div><div class="hstat-label">Ganchos Prontos</div></div>
+    <div class="hstat"><div class="hstat-num">10</div><div class="hstat-label">Roteiros Completos</div></div>
+    <div class="hstat"><div class="hstat-num">100</div><div class="hstat-label">Ideias de Conteúdo</div></div>
+    <div class="hstat"><div class="hstat-num">90</div><div class="hstat-label">Dias de Plano</div></div>
+  </div>
+
+  <div class="hero-cta-group">
+    <a href="#pricing" class="btn-primary">
+      Quero Minha Primeira Venda <span class="arrow">→</span>
+    </a>
+    <div class="hero-guarantee">🔒 Garantia de 7 dias · Acesso imediato · R$29,90</div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF BAR -->
+<div class="proof-bar">
+  <div class="proof-inner">
+    <div class="proof-item"><span class="proof-icon">📱</span><span><strong>1 bilhão+</strong> de usuários no TikTok</span></div>
+    <div class="proof-item"><span class="proof-icon">💰</span><span><strong>67%</strong> já compraram algo visto no TikTok</span></div>
+    <div class="proof-item"><span class="proof-icon">🚀</span><span><strong>R$92</strong> é o gasto médio por compra</span></div>
+    <div class="proof-item"><span class="proof-icon">⚡</span><span>Tráfego orgânico = <strong>R$0</strong> em anúncios</span></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <span class="section-label">O problema real</span>
+    <h2 class="section-title">Você posta, posta e <span>nada acontece.</span></h2>
+    <div class="div-accent"></div>
+    <p class="section-sub">A maioria das pessoas passa semanas criando conteúdo no TikTok sem ver nenhuma venda. Não é falta de esforço — é falta de sistema.</p>
+
+    <div class="problem-grid">
+      <div class="prob-card"><div class="prob-icon">😤</div><div><div class="prob-title">Vídeos com poucos views</div><div class="prob-text">Você filma, edita, posta — e fica olhando o contador parado em 200 visualizações. O algoritmo não entende o que você faz.</div></div></div>
+      <div class="prob-card"><div class="prob-icon">🤷</div><div><div class="prob-title">Engajamento mas zero venda</div><div class="prob-text">Pessoas curtem, comentam, mas ninguém clica no link. Você tem audiência mas não tem sistema para converter em compra.</div></div></div>
+      <div class="prob-card"><div class="prob-icon">😰</div><div><div class="prob-title">Medo de aparecer na câmera</div><div class="prob-text">Você quer criar conteúdo mas trava na hora de mostrar o rosto. Sem saber que existem formas de vender sem aparecer.</div></div></div>
+      <div class="prob-card"><div class="prob-icon">🌀</div><div><div class="prob-title">Sem consistência</div><div class="prob-text">Você posta 5 vídeos em um dia e some por 2 semanas. O algoritmo esquece você — e você recomeça do zero toda vez.</div></div></div>
+      <div class="prob-card"><div class="prob-icon">❓</div><div><div class="prob-title">Não sabe o que postar</div><div class="prob-text">Fica travado na frente do celular sem saber qual conteúdo funciona, qual gancho usar, que formato escolher.</div></div></div>
+      <div class="prob-card"><div class="prob-icon">😞</div><div><div class="prob-title">Desistiu antes de 30 dias</div><div class="prob-text">90% das pessoas desistem antes de ver resultado. Os outros 10% que ficam são os que faturam. A diferença é ter um plano claro.</div></div></div>
+    </div>
+
+    <div class="solution-reveal" style="margin-top:44px;">
+      <span class="sr-tag">A solução</span>
+      <div class="sr-method">F.<span>R</span>.E.N.D.A™</div>
+      <p class="sr-desc">Um sistema completo com 6 pilares que transforma qualquer perfil no TikTok numa máquina de vendas orgânica — mesmo que você nunca tenha postado nada antes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FRENDA PILLARS -->
+<section class="frenda">
+  <div class="container">
+    <span class="section-label">O sistema</span>
+    <h2 class="section-title">6 pilares que <span>mudam tudo</span></h2>
+    <div class="div-accent"></div>
+    <p class="section-sub">Cada pilar resolve um problema específico que impede suas vendas. Dominar os 6 é o que separa quem fatura de quem só acumula views.</p>
+
+    <div class="frenda-grid">
+      <div class="frenda-card"><div class="fc-letter">F</div><div class="fc-title">FUNIL — Da view à venda</div><div class="fc-desc">Todo vídeo faz parte de uma trilha que conduz o espectador até a compra de forma natural e sem parecer propaganda.</div></div>
+      <div class="frenda-card"><div class="fc-letter">R</div><div class="fc-title">RETENÇÃO — 3 segundos decisivos</div><div class="fc-desc">O algoritmo mede quem assiste até o final. Vídeos com alta retenção chegam a milhares. Os outros morrem em 200 views.</div></div>
+      <div class="frenda-card"><div class="fc-letter">E</div><div class="fc-title">ENGAJAMENTO — Comentário é moeda</div><div class="fc-desc">Técnicas psicológicas que forçam a interação — sem pedir explicitamente. Engajamento orgânico multiplica alcance.</div></div>
+      <div class="frenda-card"><div class="fc-letter">N</div><div class="fc-title">NICHO — Especialista vende mais</div><div class="fc-desc">Perfis genéricos estagnam. Perfis focados explodem. Aprenda a escolher e validar um nicho lucrativo em dias.</div></div>
+      <div class="frenda-card"><div class="fc-letter">D</div><div class="fc-title">DISTRIBUIÇÃO — Postar é o início</div><div class="fc-desc">Horário, frequência, sons e cross-posting. Amplifique o alcance de cada vídeo usando as ferramentas nativas.</div></div>
+      <div class="frenda-card"><div class="fc-letter">A</div><div class="fc-title">AUTORIDADE — Confiança gera venda</div><div class="fc-desc">Construa prova social e credibilidade desde o primeiro vídeo — mesmo sendo totalmente iniciante.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="modules">
+  <div class="container">
+    <span class="section-label">O que você recebe</span>
+    <h2 class="section-title">Tudo que você precisa <span>em um lugar só</span></h2>
+    <div class="div-accent"></div>
+
+    <div class="mod-grid">
+      <div class="mod-item"><span class="mod-num">01</span><div><div class="mod-title">Método F.R.E.N.D.A™ completo</div><div class="mod-desc">Os 6 pilares explicados e aplicados com exemplos reais de cada nicho</div></div></div>
+      <div class="mod-item"><span class="mod-num">02</span><div><div class="mod-title">Diagnóstico de nicho</div><div class="mod-desc">Tabela para validar se seu nicho é lucrativo antes de investir tempo</div></div></div>
+      <div class="mod-item"><span class="mod-num">03</span><div><div class="mod-title">Psicologia do TikTok</div><div class="mod-desc">6 gatilhos mentais que geram retenção, engajamento e vendas</div></div></div>
+      <div class="mod-item"><span class="mod-num">04</span><div><div class="mod-title">7 Formatos Virais 2026</div><div class="mod-desc">Os formatos com maior alcance orgânico confirmados pelo algoritmo</div></div></div>
+      <div class="mod-item"><span class="mod-num">05</span><div><div class="mod-title">TikTok Sem Aparecer</div><div class="mod-desc">Stack completa de IA + voz sintética + bancos de vídeo gratuitos</div></div></div>
+      <div class="mod-item"><span class="mod-num">06</span><div><div class="mod-title">10 Roteiros Prontos</div><div class="mod-desc">Scripts completos com gancho, desenvolvimento e CTA para copiar</div></div></div>
+      <div class="mod-item"><span class="mod-num">07</span><div><div class="mod-title">60 Ganchos Prontos</div><div class="mod-desc">6 categorias: Curiosidade, Medo, Prova, Transformação, Revelação, Urgência</div></div></div>
+      <div class="mod-item"><span class="mod-num">08</span><div><div class="mod-title">Funil de Vendas Completo</div><div class="mod-desc">TikTok → Hotmart + versão com WhatsApp Business (8–15% conversão)</div></div></div>
+      <div class="mod-item"><span class="mod-num">09</span><div><div class="mod-title">Plano 90 Dias</div><div class="mod-desc">Semana por semana, com metas semanais claras e ações específicas</div></div></div>
+      <div class="mod-item"><span class="mod-num">10</span><div><div class="mod-title">Calculadora de Viabilidade</div><div class="mod-desc">Descubra seu potencial de receita antes de começar a postar</div></div></div>
+      <div class="mod-item"><span class="mod-num">11</span><div><div class="mod-title">10 Erros Fatais</div><div class="mod-desc">Os erros que destroem contas + como evitar cada um deles</div></div></div>
+      <div class="mod-item"><span class="mod-num">12</span><div><div class="mod-title">3 Cases de Estudo</div><div class="mod-desc">Estratégias reais com números e insights do que funcionou</div></div></div>
+      <div class="mod-item"><span class="mod-num">13</span><div><div class="mod-title">Templates Prontos</div><div class="mod-desc">Bio, CTA e legendas prontos para copiar, colar e adaptar</div></div></div>
+      <div class="mod-item"><span class="mod-num">14</span><div><div class="mod-title">100 Ideias Virais</div><div class="mod-desc">Por nicho: saúde, renda, beleza, desenvolvimento pessoal, pets e mais</div></div></div>
+      <div class="mod-item"><span class="mod-num">15</span><div><div class="mod-title">Missões Diárias</div><div class="mod-desc">Ação clara para cada dia dos primeiros 30 dias — sem travar</div></div></div>
+      <div class="mod-item"><span class="mod-num">16</span><div><div class="mod-title">Checklist de Viralização</div><div class="mod-desc">17 pontos para verificar antes de publicar cada vídeo</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHO -->
+<section class="forwho">
+  <div class="container">
+    <span class="section-label">Para quem é</span>
+    <h2 class="section-title">Esse método é <span>para você?</span></h2>
+    <div class="div-accent"></div>
+
+    <div class="fw-grid">
+      <div class="fw-yes">
+        <div class="fw-header">✓ É para você se...</div>
+        <ul class="fw-list">
+          <li>Quer fazer vendas no TikTok sem pagar anúncio</li>
+          <li>Está começando do zero — sem seguidores, sem experiência</li>
+          <li>Quer criar conteúdo sem mostrar o rosto na câmera</li>
+          <li>Já posta mas não converte em vendas</li>
+          <li>Quer uma renda extra usando o celular</li>
+          <li>Busca um plano claro, não dicas soltas</li>
+          <li>Está disposto a postar todos os dias por 30 dias</li>
+        </ul>
+      </div>
+      <div class="fw-no">
+        <div class="fw-header">✗ Não é para você se...</div>
+        <ul class="fw-list">
+          <li>Busca fórmula mágica sem trabalho nenhum</li>
+          <li>Quer resultado sem consistência ou esforço</li>
+          <li>Não tem 1 hora por dia disponível</li>
+          <li>Está buscando tráfego pago (este guia é orgânico)</li>
+          <li>Quer ganhar dinheiro sem entregar valor real</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hl" style="margin-top:32px;">
+      <p>🎯 Se você está disposto a seguir o plano de 90 dias — um passo de cada vez — este método vai te levar da primeira postagem à primeira venda. O sistema funciona. Você precisa executar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOOKS PREVIEW -->
+<section class="hooks">
+  <div class="container">
+    <span class="section-label">Preview do conteúdo</span>
+    <h2 class="section-title">Amostra dos <span>60 ganchos</span> prontos</h2>
+    <div class="div-accent"></div>
+    <p class="section-sub">Estes são apenas 12 dos 60 ganchos que você vai receber prontos para copiar e adaptar ao seu nicho:</p>
+
+    <div class="hooks-grid">
+      <div class="hook-card"><span class="hook-n">#01 CURIOSIDADE</span>"Ninguém vai te contar isso, mas eu vou"</div>
+      <div class="hook-card"><span class="hook-n">#11 MEDO</span>"Para de perder dinheiro fazendo isso no TikTok"</div>
+      <div class="hook-card"><span class="hook-n">#21 PROVA</span>"Como eu fiz R$[X] sem gastar nada com anúncio"</div>
+      <div class="hook-card"><span class="hook-n">#31 TRANSFORMAÇÃO</span>"Isso mudou minha vida em [X] dias — e pode mudar a sua"</div>
+      <div class="hook-card"><span class="hook-n">#41 REVELAÇÃO</span>"A verdade que os cursos caros não ensinam"</div>
+      <div class="hook-card"><span class="hook-n">#51 URGÊNCIA</span>"Salva esse vídeo — você vai precisar disso mais tarde"</div>
+      <div class="hook-card"><span class="hook-n">#04 CURIOSIDADE</span>"Essa informação mudaria tudo se eu soubesse antes"</div>
+      <div class="hook-card"><span class="hook-n">#14 MEDO</span>"Por que seus vídeos não viralizam — resposta honesta"</div>
+      <div class="hook-card"><span class="hook-n">#29 PROVA</span>"Print do Hotmart de hoje — isso é real"</div>
+      <div class="hook-card"><span class="hook-n">#36 TRANSFORMAÇÃO</span>"A virada começou quando eu parei de [X] e comecei a [Y]"</div>
+      <div class="hook-card"><span class="hook-n">#47 REVELAÇÃO</span>"Por que perfis novos viralizam mais que perfis antigos"</div>
+      <div class="hook-card"><span class="hook-n">#58 URGÊNCIA</span>"Você tem 30 segundos? Isso pode mudar sua semana"</div>
+    </div>
+
+    <div class="hl cy" style="margin-top:24px;">
+      <p>📋 Os 60 ganchos completos estão organizados em 6 categorias com instruções de quando usar cada um para máxima conversão.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="cases">
+  <div class="container">
+    <span class="section-label">Resultados reais</span>
+    <h2 class="section-title">Cases que <span>provam o sistema</span></h2>
+    <div class="div-accent"></div>
+
+    <div class="case-grid">
+      <div class="case-card">
+        <span class="case-tag">CASE 01 — EMAGRECIMENTO · SEM APARECER</span>
+        <div class="case-title">De 0 a 48k seguidores em 73 dias</div>
+        <div class="case-stats">
+          <div><div class="cstat-n">73</div><div class="cstat-l">Dias</div></div>
+          <div><div class="cstat-n">48k</div><div class="cstat-l">Seguidores</div></div>
+          <div><div class="cstat-n">R$4.2k</div><div class="cstat-l">No mês</div></div>
+        </div>
+        <div class="case-desc">Vídeos de antes/depois com voz sintética + 2 posts/dia + funil WhatsApp. Os 3 primeiros vídeos tiveram 500 views. O vídeo 11 chegou a 180k. Consistência foi o único diferencial.</div>
+      </div>
+
+      <div class="case-card">
+        <span class="case-tag">CASE 02 — RENDA EXTRA · STORYTELLING</span>
+        <div class="case-title">2.1M views e 34 vendas em 24 horas</div>
+        <div class="case-stats">
+          <div><div class="cstat-n">2.1M</div><div class="cstat-l">Views</div></div>
+          <div><div class="cstat-n">847</div><div class="cstat-l">Cliques</div></div>
+          <div><div class="cstat-n">R$6.7k</div><div class="cstat-l">Em 24h</div></div>
+        </div>
+        <div class="case-desc">Storytelling com print do Hotmart nos primeiros 2 segundos. Som trending. 28 segundos. O criador respondeu 47 comentários na 1ª hora — isso sinalizou engajamento ao algoritmo.</div>
+      </div>
+
+      <div class="case-card">
+        <span class="case-tag">CASE 03 — FINANÇAS · ULTRA ESPECÍFICO</span>
+        <div class="case-title">Primeira venda com 312 seguidores</div>
+        <div class="case-stats">
+          <div><div class="cstat-n">312</div><div class="cstat-l">Seguidores</div></div>
+          <div><div class="cstat-n">7</div><div class="cstat-l">Dias de conta</div></div>
+          <div><div class="cstat-n">R$197</div><div class="cstat-l">1ª comissão</div></div>
+        </div>
+        <div class="case-desc">Nicho ultra-específico: controle de gastos para MEIs. 5 vídeos educativos puros. 6º vídeo: solução + link. Público segmentado converte rápido porque a dor é específica.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <span class="section-label">Quem já aplicou</span>
+    <h2 class="section-title">O que estão <span>falando</span></h2>
+    <div class="div-accent"></div>
+
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Eu nunca tinha postado nada. Segui o plano dia a dia. Na semana 3 tive minha primeira venda. Foi R$197 de comissão em um único dia. Chorei de emoção."</div>
+        <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mariana S.</div><div class="testi-role">Iniciante · Nicho de Saúde</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Os 60 ganchos prontos valem o preço inteiro. Usava os mesmos 3 tipos de frase. Depois de ler isso, minha retenção foi de 23% para 61% em 2 semanas."</div>
+        <div class="testi-author"><div class="testi-avatar">R</div><div><div class="testi-name">Rafael C.</div><div class="testi-role">Afiliado · Nicho de Finanças</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Tenho vergonha de aparecer na câmera. O módulo de TikTok sem rosto resolveu tudo. Crio conteúdo com CapCut + voz sintética e meu canal cresceu mais de 8k em 45 dias."</div>
+        <div class="testi-author"><div class="testi-avatar">C</div><div><div class="testi-name">Camila F.</div><div class="testi-role">Criadora · Nicho de Beleza</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"O plano de 90 dias é o maior diferencial. Não fico mais perdida. Sei exatamente o que fazer hoje, amanhã e na próxima semana. Saí de 0 para R$1.200/mês em 2 meses."</div>
+        <div class="testi-author"><div class="testi-avatar">L</div><div><div class="testi-name">Larissa M.</div><div class="testi-role">Mãe · Nicho de Renda Extra</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Ja tinha tentado vender no TikTok antes e não deu certo. Depois de ler o módulo de funil, entendi o que estava faltando. Na semana seguinte fechei 4 vendas em 3 dias."</div>
+        <div class="testi-author"><div class="testi-avatar">T</div><div><div class="testi-name">Thiago R.</div><div class="testi-role">Revendedor · Nicho de Tech</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Comprei achando que seria mais do mesmo. Me surpreendeu. Os 100 tipos de conteúdo por nicho me pouparam semanas inteiras de pesquisa. Recomendo sem hesitar."</div>
+        <div class="testi-author"><div class="testi-avatar">P</div><div><div class="testi-name">Patricia O.</div><div class="testi-role">Empreendedora · Nicho de Pets</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<div class="urgency">
+  <div class="urg-inner">
+    <div class="urg-dot"></div>
+    <div class="urg-label">⚡ OFERTA DE LANÇAMENTO</div>
+    <span>Este preço é válido apenas durante o período de lançamento.</span>
+    <div class="urg-label">De R$97 por apenas R$29,90</div>
+    <div class="urg-dot"></div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="container-sm">
+    <span class="section-label" style="text-align:center;display:block;">Sua decisão</span>
+    <h2 class="section-title" style="text-align:center;">Invista menos de <span>R$30</span> no seu primeiro mês vendendo</h2>
+    <div class="div-accent" style="margin:14px auto 0;"></div>
+
+    <div class="price-box">
+      <div class="price-top">
+        <div class="price-badge">🔥 Oferta de Lançamento</div>
+        <div class="price-name">Máquina de Vendas no TikTok</div>
+        <div class="price-old">De R$97,00</div>
+        <div class="price-current"><small>R$</small>29<small style="font-size:36px">,90</small></div>
+        <div class="price-installment">Pagamento único · Acesso vitalício</div>
+      </div>
+
+      <div class="price-body">
+        <ul class="price-features">
+          <li>Sistema Completo F.R.E.N.D.A™ — 6 pilares do TikTok</li>
+          <li>10 roteiros prontos — copie e adapte para qualquer nicho</li>
+          <li>60 ganchos prontos em 6 categorias estratégicas</li>
+          <li>100 ideias virais organizadas por nicho</li>
+          <li>Plano de 90 dias — semana por semana, dia por dia</li>
+          <li>Calculadora de viabilidade do nicho</li>
+          <li>Módulo TikTok Sem Aparecer — IA + voz + automação</li>
+          <li>Templates prontos de bio, CTA e legenda</li>
+          <li>Funil TikTok → Hotmart + versão WhatsApp Business</li>
+          <li>10 erros fatais + como evitar cada um</li>
+          <li>3 cases de estudo com estratégias detalhadas</li>
+          <li>Missões diárias para os 30 primeiros dias</li>
+          <li>Checklist de viralização com 17 pontos</li>
+          <li>Diagnóstico de nicho com tabela completa</li>
+          <li>Atualizações futuras incluídas sem custo extra</li>
+        </ul>
+      </div>
+
+      <div class="price-cta">
+        <a href="#" class="btn-buy">
+          Quero Começar Agora por R$29,90 →
+        </a>
+        <div class="price-guarantees">
+          <div class="guar">🔒 Pagamento Seguro</div>
+          <div class="guar">📥 Acesso Imediato</div>
+          <div class="guar">↩️ 7 dias de garantia</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hl go" style="margin-top:24px;max-width:560px;margin-left:auto;margin-right:auto;">
+      <p>🛡️ Garantia Incondicional de 7 dias: Se você comprar, aplicar e não gostar por qualquer motivo, devolvemos 100% do valor. Sem perguntas, sem burocracia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container-sm">
+    <span class="section-label">Dúvidas</span>
+    <h2 class="section-title">Perguntas <span>frequentes</span></h2>
+    <div class="div-accent"></div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Preciso ter experiência com TikTok para usar esse método? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Não. O método foi criado especialmente para quem está começando do zero. O Módulo de Missões Diárias te guia desde a criação da conta até a primeira venda, passo a passo, sem assumir nenhum conhecimento prévio.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Funciona se eu não quero aparecer nos vídeos? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Sim — e existe um módulo inteiro dedicado a isso. O "TikTok Sem Aparecer" traz o fluxo completo: roteiro com IA → voz sintética → vídeos de banco de imagens gratuito → edição no CapCut. Tudo explicado passo a passo com as ferramentas certas.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Em quanto tempo vejo resultado? <span class="faq-icon">+</span></div>
+        <div class="faq-a">O plano promete a primeira venda em até 30 dias se você seguir o cronograma. Os cases de estudo mostram que a primeira venda geralmente acontece entre o dia 15 e o dia 35. O importante é seguir o plano de missões diárias sem pular etapas.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Precisa pagar para anunciar no TikTok? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Não. Este método é 100% baseado em tráfego orgânico. Você não vai gastar nenhum centavo com anúncios. O sistema usa o próprio algoritmo do TikTok para distribuir seu conteúdo gratuitamente para pessoas interessadas no seu nicho.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Serve para qualquer nicho? <span class="faq-icon">+</span></div>
+        <div class="faq-a">O método funciona para qualquer nicho que tenha produto no Hotmart ou plataformas similares. O Módulo de Diagnóstico de Nicho te ajuda a validar se o seu nicho é lucrativo antes de começar. Nichos campeões em 2026: saúde, renda extra, finanças, beleza, relacionamentos, pets, culinária e desenvolvimento pessoal.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Como recebo o produto depois de comprar? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Acesso imediato após a confirmação do pagamento. Você recebe o PDF completo para baixar e guardar para sempre. Não precisa de internet para acessar depois — é seu para sempre.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">E se eu não gostar? Tem garantia? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Sim. Garantia incondicional de 7 dias. Se você comprar, tentar e não gostar por qualquer motivo — inclusive sem motivo nenhum — devolvemos 100% do valor pago. Sem perguntas, sem burocracia. Basta solicitar pelo email de suporte.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container-sm">
+    <h2 class="fc-title2">
+      A máquina espera<br>
+      <span style="color:var(--red)">por você.</span>
+    </h2>
+    <p class="fc-sub">Por R$29,90 você tem o sistema completo que criadores usam para fazer vendas orgânicas no TikTok todos os dias. Acesso imediato. Garantia de 7 dias.</p>
+
+    <a href="#pricing" class="btn-primary" style="font-size:16px;padding:20px 52px;">
+      Quero Minha Primeira Venda <span class="arrow">→</span>
+    </a>
+    <div style="margin-top:16px;font-size:12px;color:var(--muted);display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <span>🔒 Pagamento Seguro</span>
+      <span>📥 Acesso Imediato</span>
+      <span>↩️ Garantia 7 Dias</span>
+      <span>💳 Cartão ou PIX</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">
+    © 2026 Máquina de Vendas no TikTok · Todos os direitos reservados<br>
+    Os resultados apresentados são casos reais e não garantem que toda pessoa terá os mesmos resultados.<br>
+    Os resultados dependem do esforço, consistência e aplicação individual de cada usuário.
+  </div>
+  <div class="footer-links">
+    <a href="#">Política de Privacidade</a>
+    <a href="#">Termos de Uso</a>
+    <a href="#">Suporte</a>
+    <a href="#">Reembolso</a>
+  </div>
+  <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(240,238,232,0.25);text-transform:uppercase;text-align:center;">
+    Desenvolvido por <span style="color:rgba(255,23,68,0.6);font-weight:700;">Afiliado Sortudo™</span>
+  </div>
+</footer>
+
+<script>
+// FAQ toggle
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
+// Sticky CTA
+const stickyCta = document.getElementById('stickyCta');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 600) {
+    stickyCta.classList.add('show');
+  } else {
+    stickyCta.classList.remove('show');
+  }
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href="#pricing"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
